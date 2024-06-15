@@ -1,0 +1,107 @@
+import java.util.*;
+class Solution{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        Student[] s = new Student[2];
+        for(int i=0;i<s.length;i++){
+            int a = sc.nextInt();sc.nextLine();
+            String b = sc.nextLine();
+            String c = sc.nextLine();
+            double d = sc.nextDouble();sc.nextLine();
+            boolean e = sc.nextBoolean();
+
+            s[i]=new Student(a,b,c,d,e);
+        }
+        int cnt = findCountDs(s);
+        if(cnt>0){
+            System.out.println(cnt);
+        }else{
+            System.out.println("There are no such dayscholar students");
+        }
+        Student l = findShs(s);
+        if(l!=null){
+            System.out.println(l.getRoll()+"#"+l.getName()+"#"+l.getscore());
+        }else{
+            System.out.println("There are no student from non day scholar");
+        }
+        sc.close();
+    }
+    static int findCountDs(Student[] s){
+        int cnt=0;
+        for(int i=0;i<s.length;i++){
+            if(s[i].getscore()>80 && s[i].getdayScholar()){
+                cnt++;
+            }
+        }
+        if(cnt>0){
+            return cnt;
+        }else{
+            return 0;
+        }
+        
+
+    }
+    static Student findShs(Student[] s){
+        double[] arr = new double[0];
+        for(int i=0;i<s.length;i++){
+            if(s[i].getdayScholar()==false){
+                arr = Arrays.copyOf(arr,arr.length+1);
+                arr[arr.length-1]=s[i].getscore();
+            }
+        }
+        Arrays.sort(arr);
+        double shs = arr[arr.length-1];
+        for(int i=0;i>s.length;i++){
+            if(s[i].getscore()==shs){
+                return s[i];
+            }
+        }
+        return null;
+    }
+}
+
+
+class Student{
+    private int rollNo;
+    private String name;
+    private String branch;
+    private double score;
+    private boolean dayScholar;
+    public Student(int rollNo, String name, String branch, double score, boolean dayScholar){
+        this.rollNo = rollNo;
+        this.name = name;
+        this.branch = branch;
+        this.score = score;
+        this.dayScholar = dayScholar;
+    }
+    public int getRoll(){
+        return rollNo;
+    }
+    public String getName(){
+        return name;
+    }
+    public String getbranch(){
+        return branch;
+    }
+    public double getscore(){
+        return score;
+    }
+    public boolean getdayScholar(){
+        return dayScholar;
+    }
+    public void setRoll(int rollNo){
+        this.rollNo = rollNo;
+    }
+    public void setName(String name){
+        this.name = name;
+    }
+    public void setBranch(String branch){
+        this.branch = branch;
+    }
+    public void setScore(double score){
+        this.score = score;
+    }
+    public void setDayScholar(boolean dayScholar){
+        this.dayScholar = dayScholar;
+    }
+}
