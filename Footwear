@@ -1,0 +1,99 @@
+import java.util.*;
+class footwearProgram{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        Footwear[] f = new Footwear[2];
+        for(int i=0;i<f.length;i++){
+            int a = sc.nextInt();sc.nextLine();
+            String b = sc.nextLine();
+            String c = sc.nextLine();
+            int d = sc.nextInt();sc.nextLine();
+            f[i]= new Footwear(a,b,c,d);
+        }
+        String ftype = sc.nextLine();
+        String fname = sc.nextLine();
+
+        int cnt = getcnttype(f,ftype);
+        if(cnt>0){
+            System.out.println(cnt);
+        }else{
+            System.out.println("Footwear not available");
+        }
+
+        Footwear price = getshp(f,fname);
+        if(price==null){
+            System.out.println("Brand not available");
+        }else{
+            System.out.println(price.getFid());
+            System.out.println(price.getFname());
+            System.out.println(price.getPrice());
+        }
+    }
+    static int getcnttype(Footwear[] f, String ftype){
+        int cnt=0;
+        for(int i=0;i<f.length;i++){
+            if(f[i].getFtype().equalsIgnoreCase(ftype)){
+                cnt++;
+            }
+        }
+        if(cnt>0){
+            return cnt;
+        }else{
+            return 0;
+        }
+    }
+    static Footwear getshp(Footwear[] f, String fname){
+        int[] p = new int[0];
+        for(int i=0;i<f.length;i++){
+            if(f[i].getFname().equalsIgnoreCase(fname)){
+                p=Arrays.copyOf(p,p.length+1);
+                p[p.length-1]=f[i].getPrice();
+            }
+        }
+        Arrays.sort(p);
+        int pr = p[p.length-1];
+        for(int i=0;i<f.length;i++){
+            if(f[i].getPrice()==pr){
+                return f[i];
+            }
+        }
+        return null;
+    }
+}
+
+class Footwear{
+    private int footwearId;
+    private String footwearName;
+    private String footwearType;
+    private int price;
+    Footwear(int footwearId, String footwearName, String footwearType, int price){
+        this.footwearId = footwearId;
+        this.footwearName = footwearName;
+        this.footwearType = footwearType;
+        this.price = price;
+    }
+    public int getFid(){
+        return footwearId;
+    }
+    public void setFid(int footwearId){
+        this.id = footwearId;
+    }
+    public String getFname(){
+        return footwearName;
+    }
+    public void setFname(String footwearName){
+        this.footwearName = footwearName;
+    }
+    public String getFtype(){
+        return footwearType;
+    }
+    public void setFtype(String footwearType){
+        this.footwearType = footwearType;
+    }
+    public int getPrice(){
+        return price;
+    }
+    public void setPrice(int price){
+        this.price = price;
+    }
+}
